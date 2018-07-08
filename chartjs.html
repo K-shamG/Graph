@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- Bootstrap core CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Material Design Bootstrap -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.4/css/mdb.min.css" rel="stylesheet">
+</head>
+
+<body>
+  <div class="container-fluid">
+    <p>Insert your polynomial fit coefficients:</p>
+    <div class="row">
+      <div class="md-form">
+        <form id="polyFit" class="form-inline">
+          <div class="col">
+            <input type="text" id="x3" name="x3" class="form-control" />
+            <label for="x3">x3</label>
+          </div>
+          <div class="col">
+            <input type="text" id="x2" name="x2" class="form-control" />
+            <label for="x3">x2</label>
+          </div>
+          <div class="col">
+            <input type="text" id="x1" name="x1" class="form-control" />
+            <label for="x1">x1</label>
+          </div>
+          <div class="col">
+            <input type="text" id="a" name="a" class="form-control" />
+            <label for="a">a</label>
+          </div>
+      </div>
+      </form>
+    </div>
+    <div class="chart-container" style="position: relative; height:25vh; width:80vw">
+      <canvas id="chart"></canvas>
+    </div>
+  </div>
+
+
+  <!-- JQuery -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <!-- Bootstrap tooltips -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.13.0/umd/popper.min.js"></script>
+  <!-- Bootstrap core JavaScript -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <!-- MDB core JavaScript -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.4/js/mdb.min.js"></script>
+  <!-- Chart Script -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
+
+  <script>
+    var x_values = [0, 100, 200, 500, 1000, 2000];
+
+    function polynomialFit(x3, x2, x1, a, value) {
+      var cubed = (x3 * value) ^ 3;
+      var squared = (x2 * value) ^ 2;
+      var val = x1 * value;
+
+      return cubed + squared + val + a;
+    }
+
+    $('input[name=x3]').on('change', function() {
+      var x3 = document.getElementById("x3").value;
+      var x2 = document.getElementById("x2").value;
+      var x1 = document.getElementById("x1").value;
+      var a = document.getElementById("a").value;
+
+      var data = [];
+      for (var i = 0; i < x_values.length; i++) {
+        data.push(polynomialFit(x3, x2, x1, a, x_values[i]));
+      }
+
+
+      var ctx = document.getElementById('chart').getContext('2d');
+      var chart = new Chart(ctx, {
+        // The type of chart we want to create
+        type: 'line',
+        // The data for our dataset
+        data: {
+          labels: x_values,
+          datasets: [{
+            label: "Graph",
+            backgroundColor: 'rgb(255, 99, 132)',
+            borderColor: 'rgb(255, 99, 132)',
+            data: data,
+            fill: false
+          }]
+        },
+
+        // Configuration options go here
+        options: {}
+      });
+    });
+
+    $('input[name=x2]').on('change', function() {
+      var x3 = document.getElementById("x3").value;
+      var x2 = document.getElementById("x2").value;
+      var x1 = document.getElementById("x1").value;
+      var a = document.getElementById("a").value;
+
+      var data = [];
+      for (var i = 0; i < x_values.length; i++) {
+        data.push(polynomialFit(x3, x2, x1, a, x_values[i]));
+      }
+
+
+      var ctx = document.getElementById('chart').getContext('2d');
+      var chart = new Chart(ctx, {
+        // The type of chart we want to create
+        type: 'line',
+        // The data for our dataset
+        data: {
+          labels: x_values,
+          datasets: [{
+            label: "Graph",
+            backgroundColor: 'rgb(255, 99, 132)',
+            borderColor: 'rgb(255, 99, 132)',
+            data: data,
+            fill: false
+          }]
+        },
+
+        // Configuration options go here
+        options: {}
+      });
+    });
+
+    $('input[name=x1]').on('change', function() {
+      var x3 = document.getElementById("x3").value;
+      var x2 = document.getElementById("x2").value;
+      var x1 = document.getElementById("x1").value;
+      var a = document.getElementById("a").value;
+
+      for (var i = 0; i < x_values.length; i++) {
+        data.push(polynomialFit(x3, x2, x1, a, x_values[i]));
+      }
+
+      var data = [];
+      var ctx = document.getElementById('chart').getContext('2d');
+      var chart = new Chart(ctx, {
+        // The type of chart we want to create
+        type: 'line',
+        // The data for our dataset
+        data: {
+          labels: x_values,
+          datasets: [{
+            label: "Graph",
+            backgroundColor: 'rgb(255, 99, 132)',
+            borderColor: 'rgb(255, 99, 132)',
+            data: data,
+            fill: false
+          }]
+        },
+
+        // Configuration options go here
+        options: {}
+      });
+    });
+
+    $('input[name=a]').on('change', function() {
+      var x3 = document.getElementById("x3").value;
+      var x2 = document.getElementById("x2").value;
+      var x1 = document.getElementById("x1").value;
+      var a = document.getElementById("a").value;
+
+      for (var i = 0; i < x_values.length; i++) {
+        data.push(polynomialFit(x3, x2, x1, a, x_values[i]));
+      }
+
+      var data = [];
+      var ctx = document.getElementById('chart').getContext('2d');
+      var chart = new Chart(ctx, {
+        // The type of chart we want to create
+        type: 'line',
+        // The data for our dataset
+        data: {
+          labels: x_values,
+          datasets: [{
+            label: "Graph",
+            backgroundColor: 'rgb(255, 99, 132)',
+            borderColor: 'rgb(255, 99, 132)',
+            data: data,
+            fill: false
+          }]
+        },
+
+        // Configuration options go here
+        options: {}
+      });
+    });
+  </script>
+
+
+</body>
+
+</html>
